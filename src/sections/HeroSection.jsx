@@ -1,8 +1,15 @@
-// src/sections/HeroSection.jsx
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
-// ===== TYPEWRITER COMPONENT =====
-function Typewriter({ strings, typeSpeed = 100, backSpeed = 50, pause = 2000 }) {
+/* ======================
+   TYPEWRITER COMPONENT
+====================== */
+function Typewriter({
+  strings,
+  typeSpeed = 100,
+  backSpeed = 50,
+  pause = 2000,
+}) {
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -26,7 +33,7 @@ function Typewriter({ strings, typeSpeed = 100, backSpeed = 50, pause = 2000 }) 
         setIsDeleting(true);
       } else if (isDeleting && text === "") {
         setIsDeleting(false);
-        setLoopNum(loopNum + 1);
+        setLoopNum((prev) => prev + 1);
         setTypingSpeed(500);
       }
     };
@@ -35,16 +42,19 @@ function Typewriter({ strings, typeSpeed = 100, backSpeed = 50, pause = 2000 }) 
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, strings, typingSpeed, backSpeed, pause, typeSpeed]);
 
-  return <span className="typewriter-cursor">{text}</span>;
+  return <span>{text}</span>;
 }
 
-// ===== HERO SECTION =====
+/* ======================
+   HERO STYLES
+====================== */
 const base = {
   height: "100vh",
   display: "flex",
   alignItems: "center",
   padding: "0 10%",
   pointerEvents: "none",
+  position: "relative",
 };
 
 const inner = {
@@ -52,19 +62,23 @@ const inner = {
   pointerEvents: "auto",
 };
 
+/* ======================
+   HERO SECTION
+====================== */
 export default function HeroSection() {
   const handleScrollNext = () => {
     const el = document.querySelector("#about");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section id="home" style={base}>
       <div style={inner}>
-        <h1
-          className="hero-title"
+        {/* HELLO */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
           style={{
             fontSize: "4rem",
             margin: 0,
@@ -72,10 +86,12 @@ export default function HeroSection() {
           }}
         >
           HELLO,
-        </h1>
-
-        <h1
-          className="hero-title"
+        </motion.h1>
+        {/* NAME / ROLE */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           style={{
             fontSize: "3.5rem",
             margin: 0,
@@ -84,15 +100,15 @@ export default function HeroSection() {
           }}
         >
           <Typewriter
-            strings={["I AM YOGI", "FRONTEND DEV", "IOT ENGINEER"]}
-            typeSpeed={100}
-            backSpeed={50}
-            pause={2000}
+            strings={["I AM YOGI", "IOT ENGINEER", "WEB DEVELOPER"]}
           />
-        </h1>
+        </motion.h1>
 
-        {/* QUOTE CARD */}
-        <div
+        {/* DESCRIPTION */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
           style={{
             background: "rgba(0,0,0,0.5)",
             padding: "20px",
@@ -102,19 +118,15 @@ export default function HeroSection() {
             marginTop: "20px",
           }}
         >
-          <p
-            style={{
-              color: "#eee",
-              fontSize: "1.1rem",
-              lineHeight: "1.6",
-            }}
-          >
-            Ngoprek <span style={{ color: "#ffcc00" }}>Perangkat Keras</span>{" "}
-            dan membangunnya dengan{" "}
+          <p style={{ color: "#eee", fontSize: "1.1rem", lineHeight: "1.6" }}>
+            Ngoprek{" "}
+            <span style={{ color: "#ffcc00" }}>Perangkat Keras</span> dan
+            membangunnya dengan{" "}
             <span style={{ color: "#00f3ff" }}>Kecerdasan Buatan</span>.
           </p>
-        </div>
+        </motion.div>
 
+        {/* PILOT */}
         <p
           style={{
             color: "#aaa",
@@ -126,7 +138,7 @@ export default function HeroSection() {
           // PILOT: YOGI PRASETYA
         </p>
 
-        {/* SCROLL HINT */}
+        {/* SCROLL BUTTON */}
         <button
           type="button"
           className="scroll-hint"

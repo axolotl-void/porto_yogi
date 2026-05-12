@@ -1,0 +1,343 @@
+/* =========================
+NAVBAR CONTAINER
+========================= */
+.navbar{
+
+position:fixed;
+top:0;
+left:0;
+
+width:100%;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:18px 7%;
+
+z-index:9999;
+
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,0.65),
+rgba(0,0,0,0.15)
+);
+
+backdrop-filter: blur(14px);
+
+border-bottom:1px solid rgba(255,204,0,0.15);
+
+}
+
+/* =========================
+LOGO
+========================= */
+.nav-logo{
+
+font-family:"Orbitron",sans-serif;
+
+font-weight:900;
+
+font-size:22px;
+
+letter-spacing:2px;
+
+color:white;
+
+background:none;
+border:none;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+.nav-logo span{
+
+color:#ffcc00;
+
+}
+
+/* subtle glow hover */
+.nav-logo:hover{
+
+text-shadow:
+0 0 6px rgba(255,204,0,0.7);
+
+}
+
+/* =========================
+MENU WRAPPER
+========================= */
+.nav-menu{
+
+display:flex;
+
+gap:40px;
+
+align-items:center;
+
+}
+
+/* =========================
+NAV ITEM
+========================= */
+.nav-link{
+
+position:relative;
+
+font-size:13px;
+
+letter-spacing:2px;
+
+color:#9a9a9a;
+
+background:none;
+border:none;
+
+cursor:pointer;
+
+padding-bottom:6px;
+
+transition:0.3s;
+
+}
+
+/* subtle idle glow */
+.nav-link{
+
+animation: idleGlow 4s ease-in-out infinite;
+
+}
+
+@keyframes idleGlow{
+
+0%{
+opacity:0.8;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+opacity:0.8;
+}
+
+}
+
+/* hover effect */
+.nav-link:hover{
+
+color:white;
+
+text-shadow:
+0 0 6px rgba(0,243,255,0.7),
+0 0 10px rgba(255,204,0,0.4);
+
+}
+
+/* underline animation */
+.nav-link::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+bottom:-4px;
+
+width:100%;
+height:2px;
+
+background:linear-gradient(
+90deg,
+transparent,
+#00f3ff,
+#ffcc00,
+transparent
+);
+
+transform:scaleX(0);
+
+transform-origin:left;
+
+transition:0.35s;
+
+opacity:0;
+
+}
+
+/* hover line */
+.nav-link:hover::after{
+
+transform:scaleX(1);
+
+opacity:1;
+
+}
+
+/* =========================
+ACTIVE MENU
+========================= */
+.nav-active{
+
+color:#ffcc00;
+
+animation:none;
+
+}
+
+/* active underline */
+.nav-active::after{
+
+transform:scaleX(1);
+
+opacity:1;
+
+}
+
+/* =========================
+CONTACT BUTTON
+========================= */
+.nav-btn{
+
+padding:7px 20px;
+
+border:1px solid rgba(255,204,0,0.6);
+
+background:transparent;
+
+color:#ffcc00;
+
+font-size:12px;
+
+letter-spacing:2px;
+
+cursor:pointer;
+
+transition:0.3s;
+
+clip-path:polygon(
+10% 0,
+100% 0,
+100% 70%,
+90% 100%,
+0 100%,
+0 30%
+);
+
+}
+
+/* hover futuristic */
+.nav-btn:hover{
+
+background:#ffcc00;
+
+color:black;
+
+transform:translateY(-2px);
+
+box-shadow:
+
+
+0 0 8px rgba(255,204,0,0.8),
+0 0 18px rgba(255,204,0,0.4);
+
+
+}
+
+/* =========================
+MOBILE MENU
+========================= */
+.nav-toggle{
+
+display:none;
+
+}
+
+@media(max-width:768px){
+
+.nav-menu{
+
+
+display:none;
+
+
+}
+
+.nav-toggle{
+
+
+display:flex;
+
+flex-direction:column;
+
+gap:4px;
+
+background:none;
+border:none;
+
+cursor:pointer;
+
+
+}
+
+.nav-toggle-line{
+
+
+width:26px;
+height:2px;
+
+background:#ffcc00;
+
+
+}
+
+.nav-menu-mobile{
+
+
+position:fixed;
+
+top:60px;
+right:20px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:5px;
+
+padding:12px;
+background:rgba(0,0,0,0.85);
+border:1px solid rgba(255,204,0,0.2);
+border-radius:10px;
+backdrop-filter:blur(12px);
+}
+.nav-mobile-link{
+
+
+background:none;
+border:none;
+
+color:#ddd;
+
+padding:8px;
+
+text-align:left;
+
+cursor:pointer;
+
+
+}
+
+.nav-mobile-link:hover{
+
+
+color:#ffcc00;
+
+
+}
+
+}

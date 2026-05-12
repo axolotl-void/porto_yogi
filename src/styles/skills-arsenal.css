@@ -1,0 +1,623 @@
+/* =========================
+   SKILLS ARSENAL - TACTICAL CROSSHAIR EDITION
+   File: src/styles/skills-arsenal.css
+========================= */
+
+:root {
+  --gold: #FFD700;
+  --dark-glass: rgba(5, 5, 5, 0.9);
+  --gold-dim: rgba(255, 215, 0, 0.15);
+}
+
+.skills-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 5%;
+  overflow: hidden;
+  /* Background Grid Halus */
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* --- RADAR BACKGROUND ANIMATION --- */
+.radar-bg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw; height: 70vw;
+  max-width: 700px; max-height: 700px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.radar-circle {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed var(--gold);
+  border-radius: 50%;
+}
+.c1 { width: 60%; height: 60%; }
+.c2 { width: 100%; height: 100%; }
+
+.radar-sweep {
+  position: absolute; top: 50%; left: 50%;
+  width: 50%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  transform-origin: left center;
+  animation: radar-spin 5s linear infinite;
+}
+
+@keyframes radar-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+
+/* --- CONTAINER --- */
+.skills-container {
+  width: 100%; max-width: 1100px;
+  position: relative; z-index: 10;
+}
+
+.skills-header { margin-bottom: 40px; text-align: center; }
+.skills-subtitle { color: #666; font-size: 0.9rem; font-family: 'Courier New', monospace; margin-top: 8px; letter-spacing: 2px; }
+.gold-line-long { width: 60px; height: 2px; background: var(--gold); margin: 15px auto 0 auto; box-shadow: 0 0 8px var(--gold); }
+
+
+/* --- GRID SYSTEM (COMPACT 2x2) --- */
+.skills-grid {
+  display: grid;
+  /* Minmax 380px biar kartu ramping & muat 2 kolom di laptop */
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* --- MODULE CARD --- */
+.skill-card-module {
+  background: var(--dark-glass);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  clip-path: polygon(
+    0 0, 100% 0, 
+    100% calc(100% - 15px), calc(100% - 15px) 100%, 
+    0 100%
+  );
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-card-module:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+}
+
+.module-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.module-id { font-family: 'Courier New', monospace; color: var(--gold); opacity: 0.4; font-size: 1.2rem; font-weight: bold; }
+.module-title { color: #eee; font-family: 'Courier New', monospace; font-size: 1rem; letter-spacing: 1px; margin: 0; font-weight: 600; }
+
+.module-divider { width: 100%; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-bottom: 12px; opacity: 0.2; }
+
+.module-desc { color: #888; font-size: 0.8rem; margin-bottom: 20px; line-height: 1.4; font-family: sans-serif; }
+
+
+/* --- TECH SLOTS (CROSSHAIR BACKGROUND) --- */
+.tech-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 Kolom Rapat */
+  gap: 8px;
+}
+
+.tech-slot {
+  aspect-ratio: 1/1;
+  background: rgba(255,255,255,0.01);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.2s;
+  cursor: default;
+  overflow: hidden;
+  border-radius: 4px;
+
+  /* EFEK GARIS BIDIK (CROSSHAIR) DI BACKGROUND */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.tech-slot:hover {
+  background-color: rgba(255, 215, 0, 0.08); 
+  border-color: var(--gold);
+  box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.05); 
+}
+
+/* Titik bidik tengah */
+.tech-slot::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px; height: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+/* Saat hover, kotak bidik membesar (Zoom Lock) */
+.tech-slot:hover::before {
+  border-color: var(--gold);
+  width: 100%; height: 100%;
+  opacity: 0.1;
+}
+
+
+/* --- ICON IMAGE (UKURAN LEBIH KECIL & RAPI) --- */
+.icon-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.tech-icon-img {
+  width: 45%;  /* Ukuran pas, tidak kegedean */
+  height: 45%;
+  object-fit: contain;
+  
+  /* Mode Mati: Abu-abu redup tapi masih terlihat */
+  filter: grayscale(100%) brightness(0.8) contrast(0.8);
+  opacity: 0.6;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
+}
+
+/* SAAT HOVER: WARNA ASLI & ZOOM SEDIKIT */
+.tech-slot:hover .tech-icon-img {
+  width: 55%; 
+  height: 55%;
+  opacity: 1;
+  /* Kembali ke warna asli */
+  filter: grayscale(0%) brightness(1.1) contrast(1.1);
+}
+
+
+/* --- SKILL NAME OVERLAY --- */
+.skill-name-overlay {
+  position: absolute;
+  bottom: 15px;
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0,0,0,0.9);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid #333;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: 0.2s;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.tech-slot:hover .skill-name-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* --- MINI LEVEL BAR (TIPIS) --- */
+.mini-level-bar {
+  width: 60%;
+  height: 2px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 1px;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.level-fill {
+  height: 100%;
+  background: #333;
+  transition: 0.3s;
+}
+
+.tech-slot:hover .level-fill {
+  background: var(--gold);
+  box-shadow: 0 0 5px var(--gold);
+}
+
+
+/* --- DEKORASI POJOK --- */
+.slot-corner {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 3px; height: 3px; background: #444;
+}
+.tech-slot:hover .slot-corner { background: var(--gold); }
+
+.corner-bracket { position: absolute; width: 10px; height: 10px; border: 1px solid var(--gold); transition: 0.3s; opacity: 0.4; pointer-events: none; }
+.top-right { top: 0; right: 0; border-bottom: none; border-left: none; }
+.bottom-left { bottom: 0; left: 0; border-top: none; border-right: none; }
+.skill-card-module:hover .corner-bracket { opacity: 1; width: 20px; height: 20px; }
+
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .skills-grid { 
+    grid-template-columns: 1fr; /* 1 Kolom di HP */
+  } 
+  
+  .tech-slots { 
+    gap: 6px; 
+    grid-template-columns: repeat(3, 1fr); 
+  }
+  
+  .tech-slot { 
+    aspect-ratio: auto; 
+    height: 80px; 
+  }
+}
+/* =========================
+   SKILLS ARSENAL - RUNNING COLOR EDITION
+   File: src/styles/skills-arsenal.css
+========================= */
+
+:root {
+  --gold: #FFD700;
+  --dark-glass: rgba(5, 5, 5, 0.9);
+  --gold-dim: rgba(255, 215, 0, 0.15);
+}
+
+.skills-section {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 5%;
+  overflow: hidden;
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* RADAR ANIMATION */
+.radar-bg {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 70vw; height: 70vw; max-width: 700px; max-height: 700px;
+  z-index: 0; pointer-events: none; opacity: 0.1;
+}
+.radar-circle {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  border: 1px dashed var(--gold); border-radius: 50%;
+}
+.c1 { width: 60%; height: 60%; }
+.c2 { width: 100%; height: 100%; }
+.radar-sweep {
+  position: absolute; top: 50%; left: 50%; width: 50%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  transform-origin: left center; animation: radar-spin 5s linear infinite;
+}
+@keyframes radar-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* CONTAINER */
+.skills-container { width: 100%; max-width: 1100px; position: relative; z-index: 10; }
+.skills-header { margin-bottom: 40px; text-align: center; }
+.skills-subtitle { color: #666; font-size: 0.9rem; font-family: 'Courier New', monospace; margin-top: 8px; letter-spacing: 2px; }
+.gold-line-long { width: 60px; height: 2px; background: var(--gold); margin: 15px auto 0 auto; box-shadow: 0 0 8px var(--gold); }
+
+/* GRID SYSTEM */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* MODULE CARD */
+.skill-card-module {
+  background: var(--dark-glass);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  display: flex; flex-direction: column;
+}
+.skill-card-module:hover {
+  border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+}
+.module-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.module-id { font-family: 'Courier New', monospace; color: var(--gold); opacity: 0.4; font-size: 1.2rem; font-weight: bold; }
+.module-title { color: #eee; font-family: 'Courier New', monospace; font-size: 1rem; letter-spacing: 1px; margin: 0; font-weight: 600; }
+.module-divider { width: 100%; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-bottom: 12px; opacity: 0.2; }
+.module-desc { color: #888; font-size: 0.8rem; margin-bottom: 20px; line-height: 1.4; font-family: sans-serif; }
+
+/* TECH SLOTS */
+.tech-slots { 
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; 
+}
+
+.tech-slot {
+  aspect-ratio: 1/1; 
+  background: rgba(255,255,255,0.01);
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  position: relative; transition: 0.2s; cursor: default; overflow: hidden;
+  border-radius: 4px;
+  
+  /* Background Crosshair */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.tech-slot:hover {
+  background-color: rgba(255, 215, 0, 0.08); 
+  border-color: var(--gold); 
+  box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.05); 
+}
+.tech-slot::before {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 10px; height: 10px; border: 1px solid rgba(255, 255, 255, 0.1); pointer-events: none; transition: 0.3s;
+}
+.tech-slot:hover::before { border-color: var(--gold); width: 100%; height: 100%; opacity: 0.1; }
+
+
+/* --- ICON ANIMATION (THE RUNNING COLOR MAGIC) --- */
+
+.icon-wrapper {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0;
+  position: relative; /* Wajib untuk tumpuk gambar */
+}
+
+/* 1. GAMBAR DASAR (ABU-ABU MATI) - Selalu terlihat di belakang */
+.tech-icon-base {
+  width: 45%; height: 45%; object-fit: contain;
+  filter: grayscale(100%) brightness(0.7) contrast(0.8);
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+/* 2. GAMBAR SCAN (BERWARNA HIDUP) - Bergerak di atasnya */
+.tech-icon-scan {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45%; height: 45%; object-fit: contain;
+  
+  filter: grayscale(0%) brightness(1.2) contrast(1.1); /* Warna Asli Cerah */
+  opacity: 1;
+
+  /* ANIMASI MASKING BERJALAN */
+  mask-image: linear-gradient(90deg, transparent 0%, white 50%, transparent 100%);
+  mask-size: 50% 100%; /* Lebar area scan */
+  mask-repeat: no-repeat;
+  animation: scanRun 3s linear infinite; /* Loop terus menerus */
+}
+
+/* KEYFRAMES: Gerakkan Mask dari Kanan ke Kiri */
+@keyframes scanRun {
+  0%   { mask-position: 200% center; } /* Mulai dari jauh di kanan */
+  100% { mask-position: -200% center; } /* Berakhir jauh di kiri */
+}
+
+
+/* --- INTERAKSI SAAT HOVER --- */
+
+/* Saat Hover: Gambar Abu-abu jadi terang dikit */
+.tech-slot:hover .tech-icon-base {
+  filter: grayscale(100%) brightness(1.2); /* Terangin base-nya */
+}
+
+/* Saat Hover: Gambar Berwarna MUNCUL PENUH (Masking Hilang) */
+.tech-slot:hover .tech-icon-scan {
+  mask-image: none; /* Hapus masking, jadi warna penuh */
+  animation: none;  /* Stop animasi jalan */
+  width: 55%;       /* Efek Zoom dikit */
+  height: 55%;
+  filter: grayscale(0%) brightness(1.1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+/* Saat Hover: Base ikut nge-zoom biar sinkron */
+.tech-slot:hover .tech-icon-base {
+  width: 55%; height: 55%;
+  opacity: 0; /* Sembunyikan base karena scan sudah penuh */
+}
+
+
+/* OVERLAY NAME */
+.skill-name-overlay {
+  position: absolute; bottom: 15px; font-size: 0.65rem; font-family: 'Courier New', monospace;
+  font-weight: bold; color: #fff; background: rgba(0,0,0,0.9); padding: 1px 5px; border-radius: 3px; border: 1px solid #333;
+  opacity: 0; transform: translateY(5px); transition: 0.2s; pointer-events: none; white-space: nowrap; z-index: 5;
+}
+.tech-slot:hover .skill-name-overlay { opacity: 1; transform: translateY(0); }
+
+/* MINI LEVEL BAR */
+.mini-level-bar { width: 60%; height: 2px; background: rgba(255,255,255,0.05); border-radius: 1px; margin-bottom: 8px; position: relative; z-index: 2; }
+.level-fill { height: 100%; background: #333; transition: 0.3s; }
+.tech-slot:hover .level-fill { background: var(--gold); box-shadow: 0 0 5px var(--gold); }
+
+/* DECORATIONS */
+.slot-corner { position: absolute; bottom: 2px; right: 2px; width: 3px; height: 3px; background: #444; }
+.tech-slot:hover .slot-corner { background: var(--gold); }
+.corner-bracket { position: absolute; width: 10px; height: 10px; border: 1px solid var(--gold); transition: 0.3s; opacity: 0.4; pointer-events: none; }
+.top-right { top: 0; right: 0; border-bottom: none; border-left: none; }
+.bottom-left { bottom: 0; left: 0; border-top: none; border-right: none; }
+.skill-card-module:hover .corner-bracket { opacity: 1; width: 20px; height: 20px; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .skills-grid { grid-template-columns: 1fr; } 
+  .tech-slots { gap: 6px; grid-template-columns: repeat(3, 1fr); }
+  .tech-slot { aspect-ratio: auto; height: 80px; }
+}
+
+.skill-info-panel{
+
+margin-top:18px;
+
+padding:14px;
+
+background:rgba(0,0,0,0.55);
+
+border:1px solid rgba(0,243,255,0.3);
+
+border-radius:8px;
+
+animation:fadePanel .25s ease;
+
+}
+
+.skill-info-panel h4{
+
+color:#00f3ff;
+
+margin-bottom:6px;
+
+font-size:13px;
+
+}
+
+.skill-info-panel p{
+
+font-size:12px;
+
+color:#aaa;
+
+margin-bottom:8px;
+
+}
+
+.skill-tags{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:6px;
+
+}
+
+.skill-tags span{
+
+font-size:10px;
+
+padding:3px 6px;
+
+border:1px solid rgba(255,204,0,.3);
+
+color:#ffcc00;
+
+border-radius:4px;
+
+}
+
+@keyframes fadePanel{
+
+from{
+opacity:0;
+transform:translateY(6px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+.skill-info-panel{
+
+margin-top:18px;
+
+padding:14px;
+
+background:rgba(0,0,0,0.55);
+
+border:1px solid rgba(0,243,255,0.3);
+
+border-radius:8px;
+
+animation:fadePanel .25s ease;
+
+}
+
+.skill-info-panel h4{
+
+color:#00f3ff;
+
+margin-bottom:6px;
+
+}
+
+.skill-info-panel p{
+
+font-size:12px;
+
+color:#aaa;
+
+margin-bottom:8px;
+
+}
+
+.skill-tags{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:6px;
+
+}
+
+.skill-tags span{
+
+font-size:10px;
+
+padding:3px 6px;
+
+border:1px solid rgba(255,204,0,.3);
+
+color:#ffcc00;
+
+border-radius:4px;
+
+}
+
+@keyframes fadePanel{
+
+from{
+opacity:0;
+transform:translateY(6px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}

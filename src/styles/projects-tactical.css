@@ -1,0 +1,134 @@
+/* =========================
+   PROJECTS - TACTICAL DATA CARDS
+   File: src/styles/projects-tactical.css
+========================= */
+
+:root {
+  --gold: #FFD700;
+  --dark-glass: rgba(5, 5, 5, 0.9);
+  --gold-dim: rgba(255, 215, 0, 0.15);
+}
+
+.projects-section {
+  min-height: 100vh;
+  padding: 80px 5%;
+  position: relative;
+  overflow: hidden;
+  /* Background Grid Halus (sama kayak Skills) */
+  background-image: 
+    linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.projects-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.projects-header {
+  margin-bottom: 50px;
+  text-align: left; /* Header rata kiri biar beda dikit */
+  border-left: 3px solid var(--gold);
+  padding-left: 20px;
+}
+
+.projects-subtitle {
+  color: #888;
+  font-family: 'Courier New', monospace;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+/* --- GRID LAYOUT --- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); /* Lebar minimal 500px */
+  gap: 30px;
+}
+
+/* --- PROJECT CARD (MISSION DOSSIER) --- */
+.project-card {
+  background: rgba(10, 10, 10, 0.85);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  padding: 30px;
+  position: relative;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  /* Potongan sudut futuristik */
+  clip-path: polygon(
+    20px 0, 100% 0, 
+    100% calc(100% - 20px), calc(100% - 20px) 100%, 
+    0 100%, 0 20px
+  );
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  border-color: var(--gold);
+  transform: translateX(5px); /* Geser ke kanan dikit pas hover */
+  box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Dekorasi Garis di Kiri Kartu */
+.project-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--gold-dim); transition: 0.3s;
+}
+.project-card:hover::before { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+
+
+/* --- CONTENT STYLING --- */
+.card-header {
+  display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;
+}
+
+.project-title {
+  font-family: 'Courier New', monospace; color: #fff; font-size: 1.5rem; margin: 0; font-weight: bold;
+}
+
+.project-status {
+  font-size: 0.7rem; color: #000; background: var(--gold); padding: 3px 8px; font-weight: bold;
+  border-radius: 2px; text-transform: uppercase; letter-spacing: 1px;
+}
+
+.project-role-year {
+  font-size: 0.85rem; color: #888; margin-bottom: 20px; font-family: 'Courier New', monospace;
+  display: flex; gap: 15px;
+}
+.highlight { color: var(--gold); }
+
+.project-desc {
+  color: #ccc; line-height: 1.6; font-size: 0.95rem; margin-bottom: 25px; flex-grow: 1;
+}
+
+/* --- TECH STACK BADGES --- */
+.tech-stack-container {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; /* Dorong ke bawah */
+}
+
+.tech-badge {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  color: var(--gold);
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.project-card:hover .tech-badge {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .projects-grid { grid-template-columns: 1fr; } /* 1 kolom di HP */
+  .projects-header { text-align: center; border-left: none; padding-left: 0; border-bottom: 3px solid var(--gold); padding-bottom: 15px; }
+}
